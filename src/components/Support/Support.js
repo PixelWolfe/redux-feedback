@@ -11,7 +11,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 
+import {connect} from 'react-redux';
+
 class Support extends Component{
+    textEntered = (event)=>{
+      this.props.dispatch({type: "SET_SUPPORT_COMMENT", payload: event.target.value})
+    }
     render(){
         const cardStyle = {
             background: "linear-gradient(rgb(178, 197, 218), orange)",
@@ -22,12 +27,10 @@ class Support extends Component{
           function valuetext(value) {
             return `${value}`;
           }
-      
-          let sliderValue = 3;
-      
+
           const sliderChange= (e, value)=>{
               console.log(value);
-              sliderValue = value
+              this.props.dispatch({type: 'SET_SUPPORT_RATING', payload: value});
           }
       
           const textField = {
@@ -60,6 +63,10 @@ class Support extends Component{
           const buffButtonMargin = {
             marginTop: '10px'
           }      
+          const spanStyle = {
+            fontSize: '1.1rem',
+            fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+          } 
         return(
             <Card variant="outlined" style={cardStyle}>
             <CardHeader
@@ -68,7 +75,7 @@ class Support extends Component{
             />
             <CardContent>
               <Typography align="center" id="discrete-slider" gutterBottom>
-                How would you rate your support for today?<br/>(1-5)
+              How would you rate your support for today?<br/>(1-5)
               </Typography>
               <Slider
                 defaultValue={3}
@@ -84,9 +91,8 @@ class Support extends Component{
               <br></br>
               <br></br>
               <Typography align="center" id="discrete-slider" gutterBottom>
-              
-              What did/could have worked for supporting you today?
-                
+              <span style={spanStyle}>Optional Feedback</span><br></br>  
+                What did/could have worked for supporting you today?
               </Typography>
               <TextField 
               inputProps={{
@@ -98,17 +104,23 @@ class Support extends Component{
               rowsMax='6'
               id="filled-basic" 
               label="Comments" 
-              variant="filled" />
+              variant="filled" 
+              onChange={this.textEntered}/>
               <Typography align='right'>
                 <Button style={buffButtonMargin} variant="contained" color="primary" endIcon={<ArrowForward>Next</ArrowForward>}>
                 Next
                 </Button>
               </Typography>
-              
+              {JSON.stringify(this.props.reduxState.support)}
+              {JSON.stringify(this.props.reduxState.support_comment)}
             </CardContent>
           </Card>
         )
     }
 }
 
-export default Support;
+const mapStateToProps = (reduxState)=>({
+  reduxState
+})
+
+export default connect(mapStateToProps)(Support);

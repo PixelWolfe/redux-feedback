@@ -10,7 +10,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 
+import {connect} from 'react-redux';
+
 class Comments extends Component{
+    textEntered = (event)=>{
+      this.props.dispatch({type: "SET_ADDITIONAL_COMMENTS", payload: event.target.value})
+    }
     render(){
         const cardStyle = {
             background: "linear-gradient(rgb(178, 197, 218), orange)",
@@ -37,24 +42,31 @@ class Comments extends Component{
               <br></br>
               <TextField 
               inputProps={{
-                maxLength: 1250,
+                maxLength: 2500,
               }}
               style={textField}
               multiline={true}
-              rows='3'
-              rowsMax='6'
+              rows='6'
+              rowsMax='10'
               id="filled-basic" 
               label="Comments" 
-              variant="filled" />
+              variant="filled" 
+              onChange={this.textEntered}/>
               <Typography align='right'>
                 <Button style={buffButtonMargin} variant="contained" color="primary" endIcon={<ArrowForward>Next</ArrowForward>}>
                 Next
                 </Button>
               </Typography>
+              {JSON.stringify(this.props.reduxState.additional_comments)}
+
             </CardContent>
           </Card>
         )
     }
 }
 
-export default Comments;
+const mapStateToProps= (reduxState) => ({
+  reduxState
+})
+
+export default connect(mapStateToProps)(Comments);

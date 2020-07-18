@@ -4,6 +4,9 @@ import Header from '../Header/Header';
 import './App.css';
 import {Grid} from '@material-ui/core';
 
+import Comments from '../Comments/Comments';
+import Understanding from '../Understanding/Understanding';
+import Feeling from '../Feeling/Feeling'
 import Support from '../Support/Support';
 import FeedbackStepper from '../Stepper/Stepper';
 
@@ -26,7 +29,14 @@ class App extends Component {
           <Grid item xs={10}>
             <Grid container spacing={4} justify='center'>
               <Grid item xs={12} sm={10} md={8} lg={6} >
+               
+                <Feeling/>
+                <br></br>
                 <Support/>
+                <br></br>
+                <Understanding/>
+                <br></br>
+                <Comments/>
               </Grid>
             </Grid>
           </Grid>

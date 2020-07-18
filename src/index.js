@@ -8,28 +8,37 @@ import {Provider} from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 
 const defaultState = {
-    feeling: null,
-    understanding: null,
-    supported: null,
-    comments: null
+    feeling: 3,
+    feeling_comment: '',
+    understanding: 3,
+    understanding_comment: '',
+    support: 3,
+    support_comment: '',
+    additional_comments: '',
 }
 
 const feedback = (state = defaultState, action)=>{
     switch(action.type){
-        case 'SET_FEELING':
+        case 'SET_FEELING_RATING':
             return {...state, feeling: action.payload};
-        case 'SET_UNDERSTANDING':
+        case 'SET_FEELING_COMMENT':
+            return {...state, feeling_comment: action.payload};
+        case 'SET_UNDERSTANDING_RATING':
             return {...state, understanding: action.payload}
-        case 'SET_SUPPORTED':
-            return {...state, supported: action.payload}
-        case 'SET_COMMENTS':
-            return {...state, comments: action.payload}
+        case 'SET_UNDERSTANDING_COMMENT':
+            return {...state, understanding_comment: action.payload}
+        case 'SET_SUPPORT_RATING':
+            return {...state, support: action.payload}
+        case 'SET_SUPPORT_COMMENT':
+            return {...state, support_comment: action.payload}
+        case 'SET_ADDITIONAL_COMMENTS':
+            return {...state, additional_comments: action.payload}
     }
     return state;
 }
 
 const storeInstance = createStore(
-    combineReducers(feedback), applyMiddleware(logger)
+    feedback, applyMiddleware(logger)
 )
 
 ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, document.getElementById('root'));

@@ -11,7 +11,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 
+import {connect} from 'react-redux';
+
 class Feeling extends Component{
+    textEntered = (event)=>{
+      this.props.dispatch({type: 'SET_FEELING_COMMENT', payload: event.target.value})
+    }
     render(){
         const cardStyle = {
             background: "linear-gradient(rgb(178, 197, 218), orange)",
@@ -23,11 +28,9 @@ class Feeling extends Component{
             return `${value}`;
           }
       
-          let sliderValue = 3;
-      
           const sliderChange= (e, value)=>{
               console.log(value);
-              sliderValue = value
+              this.props.dispatch({type:'SET_FEELING_RATING', payload: value})
           }
       
           const textField = {
@@ -59,7 +62,11 @@ class Feeling extends Component{
           
           const buffButtonMargin = {
             marginTop: '10px'
-          }      
+          }  
+          const spanStyle = {
+            fontSize: '1.1rem',
+            fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+          }   
         return(
             <Card variant="outlined" style={cardStyle}>
             <CardHeader
@@ -67,8 +74,8 @@ class Feeling extends Component{
               title="Feeling Rating"
             />
             <CardContent>
-              <Typography align="center" id="discrete-slider" gutterBottom>
-                How have you been feeling today?<br/>(1-5)
+              <Typography align="center" id="discrete-slider" gutterBottom>  
+              How have you been feeling today?<br/>(1-5)
               </Typography>
               <Slider
                 defaultValue={3}
@@ -84,7 +91,7 @@ class Feeling extends Component{
               <br></br>
               <br></br>
               <Typography align="center" id="discrete-slider" gutterBottom>
-              
+              <span style={spanStyle}>Optional Feedback</span><br></br>  
               Anything you would like us to know?
                 
               </Typography>
@@ -98,17 +105,24 @@ class Feeling extends Component{
               rowsMax='6'
               id="filled-basic" 
               label="Comments" 
-              variant="filled" />
+              variant="filled" 
+              onChange={this.textEntered}/>
               <Typography align='right'>
                 <Button style={buffButtonMargin} variant="contained" color="primary" endIcon={<ArrowForward>Next</ArrowForward>}>
                 Next
                 </Button>
               </Typography>
-              
+              {JSON.stringify(this.props.reduxState.feeling)}
+              {JSON.stringify(this.props.reduxState.feeling_comment)}
+
             </CardContent>
           </Card>
         )
     }
 }
 
-export default Feeling;
+const mapStateToProps = (reduxState)=>({
+  reduxState
+})
+
+export default connect(mapStateToProps)(Feeling);

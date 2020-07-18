@@ -11,7 +11,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 
+import {connect} from 'react-redux';
+
 class Understanding extends Component{
+    textEntered = (event)=>{
+      this.props.dispatch({type: "SET_UNDERSTANDING_COMMENT", payload: event.target.value})
+    }
     render(){
         const cardStyle = {
             background: "linear-gradient(rgb(178, 197, 218), orange)",
@@ -23,11 +28,9 @@ class Understanding extends Component{
             return `${value}`;
           }
       
-          let sliderValue = 3;
-      
           const sliderChange= (e, value)=>{
               console.log(value);
-              sliderValue = value
+              this.props.dispatch({type: "SET_UNDERSTANDING_RATING", payload: value})
           }
       
           const textField = {
@@ -59,7 +62,11 @@ class Understanding extends Component{
           
           const buffButtonMargin = {
             marginTop: '10px'
-          }      
+          }     
+          const spanStyle = {
+            fontSize: '1.1rem',
+            fontFamily: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif'
+          } 
         return(
             <Card variant="outlined" style={cardStyle}>
             <CardHeader
@@ -83,10 +90,10 @@ class Understanding extends Component{
               />
               <br></br>
               <br></br>
+              <br></br>
               <Typography align="center" id="discrete-slider" gutterBottom>
-              
+              <span style={spanStyle}>Optional Feedback</span><br></br>
               Any insight into what did/could help with understanding?
-                
               </Typography>
               <TextField 
               inputProps={{
@@ -98,17 +105,23 @@ class Understanding extends Component{
               rowsMax='6'
               id="filled-basic" 
               label="Comments" 
-              variant="filled" />
+              variant="filled" 
+              onChange={this.textEntered}/>
               <Typography align='right'>
                 <Button style={buffButtonMargin} variant="contained" color="primary" endIcon={<ArrowForward>Next</ArrowForward>}>
                 Next
                 </Button>
               </Typography>
-              
+              {JSON.stringify(this.props.reduxState.understanding)}
+              {JSON.stringify(this.props.reduxState.understanding_comment)}
             </CardContent>
           </Card>
         )
     }
 }
 
-export default Understanding;
+const mapStateToProps = (reduxState) =>({
+  reduxState
+})
+
+export default connect(mapStateToProps)(Understanding);
