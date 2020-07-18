@@ -59,10 +59,14 @@ const styles = theme => ({
     
     handleNext = () => {
       let activeStep;
+       // If activeStep is last step AND 
+            //all steps are NOT complete,
       if (this.isLastStep() && !this.allStepsCompleted()) {
-        // It's the last step, but not all steps have been completed,
         // find the first step that has been completed
+
+        //save all steps formatted step = ['step label','step label']
         const steps = getSteps();
+        //set activeStep to the first index that matches of step
         activeStep = steps.findIndex((step, i) => !(i in this.state.completed));
       } else {
         activeStep = this.state.activeStep + 1;
@@ -73,23 +77,33 @@ const styles = theme => ({
     };
   
     handleBack = () => {
+        //setState this.state.activeStep minus one
       this.setState(state => ({
         activeStep: state.activeStep - 1,
       }));
     };
   
     handleStep = step => () => {
+        //
       this.setState({
         activeStep: step,
       });
     };
   
     handleComplete = () => {
+         //const completed = this.state.completed
       const { completed } = this.state;
+
+      //this.state.completed[activeStep] = true;
       completed[this.state.activeStep] = true;
+
+      //set completed of that active state to true
+      //so if this.state.activeState = 4 then completed: {4: true}
       this.setState({
-        completed,
+        completed, //{completed: {}
       });
+      
+      //call
       this.handleNext();
     };
   
@@ -100,14 +114,17 @@ const styles = theme => ({
       });
     };
   
+    //tracks how many entries are in object
     completedSteps() {
       return Object.keys(this.state.completed).length;
     }
   
+    //returns true or false if active step is last step
     isLastStep() {
       return this.state.activeStep === this.totalSteps() - 1;
     }
   
+    //
     allStepsCompleted() {
       return this.completedSteps() === this.totalSteps();
     }
@@ -140,52 +157,6 @@ const styles = theme => ({
               </Step>
             ))}
           </Stepper>
-
-
-          {/*
-            
-          */}
-          <div>
-            {this.allStepsCompleted() ? (
-              <div>
-                <Typography className={classes.instructions}>
-                  All steps completed - you&apos;re finished
-                </Typography>
-                <Button onClick={this.handleReset}>Reset</Button>
-              </div>
-            ) : (
-              <div>
-                <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                <div>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={this.handleBack}
-                    className={classes.button}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={this.handleNext}
-                    className={classes.button}
-                  >
-                    Next
-                  </Button>
-                  {activeStep !== steps.length &&
-                    (this.state.completed[this.state.activeStep] ? (
-                      <Typography variant="caption" className={classes.completed}>
-                        Step {activeStep + 1} already completed
-                      </Typography>
-                    ) : (
-                      <Button variant="contained" color="primary" onClick={this.handleComplete}>
-                        {this.completedSteps() === this.totalSteps() - 1 ? 'Finish' : 'Complete Step'}
-                      </Button>
-                    ))}
-                </div>
-              </div>
-            )}
-          </div>
         </div>
       );
     }
