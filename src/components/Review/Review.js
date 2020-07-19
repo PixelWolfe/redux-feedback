@@ -34,10 +34,25 @@ class Comments extends Component{
       console.log('In next completeStep function');
       this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 5});
       this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {4: true}});
-      this.props.history.push('/thankyou');
 
+      let feedbackObject = {
+        feeling: this.props.reduxState.feedback.feeling,
+        feeling_comment: this.props.reduxState.feedback.feeling_comment,
+        understanding: this.props.reduxState.feedback.understanding,
+        understanding_comment: this.props.reduxState.feedback.understanding_comment,
+        support: this.props.reduxState.feedback.support,
+        support_comment: this.props.reduxState.feedback.support_comment,
+        additional_comments: this.props.reduxState.feedback.additional_comments
+      }
+
+      console.log(feedbackObject);
       //send axios post request with information from reduxState.feedback
       //reset
+
+      //in then move the history
+      this.props.history.push('/thankyou');
+
+     
     }
 
     textEntered = (event)=>{
