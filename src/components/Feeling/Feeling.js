@@ -121,9 +121,6 @@ class Feeling extends Component{
                 Next
                 </Button>
               </Typography>
-              {JSON.stringify(this.props.reduxState.feedback.feeling)}
-              {JSON.stringify(this.props.reduxState.feedback.feeling_comment)}
-
             </CardContent>
           </Card>
         )

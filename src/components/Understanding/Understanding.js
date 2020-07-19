@@ -119,8 +119,6 @@ class Understanding extends Component{
                 Next
                 </Button>
               </Typography>
-              {JSON.stringify(this.props.reduxState.feedback.understanding)}
-              {JSON.stringify(this.props.reduxState.feedback.understanding_comment)}
             </CardContent>
           </Card>
         )

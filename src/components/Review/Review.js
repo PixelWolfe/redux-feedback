@@ -162,7 +162,6 @@ class Comments extends Component{
                 Submit Feedback!
                 </Button>
               </Typography>
-              {JSON.stringify(this.props.reduxState)}
             </CardContent>
           </Card>
         )

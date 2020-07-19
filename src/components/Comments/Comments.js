@@ -64,8 +64,6 @@ class Comments extends Component{
                 Next
                 </Button>
               </Typography>
-              {JSON.stringify(this.props.reduxState.feedback.additional_comments)}
-
             </CardContent>
           </Card>
         )
