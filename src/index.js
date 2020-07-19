@@ -40,6 +40,14 @@ const feedback = (state = feedbackDefaultState, action)=>{
             return {...state, support_comment: action.payload}
         case 'SET_ADDITIONAL_COMMENTS':
             return {...state, additional_comments: action.payload}
+        case 'RESET_FEEDBACK':
+            return {...state, feeling: 3,
+                        feeling_comment: '',
+                        understanding: 3,
+                        understanding_comment: '',
+                        support: 3,
+                        support_comment: '',
+                        additional_comments: ''};
     }
     return state;
 }
@@ -50,6 +58,8 @@ const stepper = (state = stepperDefaultState, action)=>{
             return {...state, activeStep: action.payload}
         case 'SET_STEPPER_COMPLETED':
             return {...state, completed: {...state.completed, ...action.payload}}
+        case 'RESET_STEPPER':
+            return {...state, activeStep: 0, completed: {}}
     }
     return state;
 }

@@ -11,6 +11,7 @@ import Feeling from '../Feeling/Feeling'
 import Support from '../Support/Support';
 import FeedbackStepper from '../Stepper/Stepper';
 import Review from '../Review/Review';
+import ThankYou from '../ThankYou/ThankYou';
 
 import {HashRouter as Router, Route, Link, withRouter} from 'react-router-dom';
 
@@ -42,6 +43,7 @@ class App extends Component {
                   <Route path='/support' component={Support}/>
                   <Route path='/comments' component={Comments}/>
                   <Route path='/review' component={Review}/>
+                  <Route path='/thankyou' component={ThankYou}/>
                 </Router>
 
                 {/*

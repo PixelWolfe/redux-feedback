@@ -20,7 +20,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import Comment from '@material-ui/icons/ChatTwoTone'
+import Comment from '@material-ui/icons/ChatTwoTone';
+
 
 import Tooltip from '@material-ui/core/Tooltip';
 import {connect} from 'react-redux';
@@ -33,11 +34,12 @@ class Comments extends Component{
       console.log('In next completeStep function');
       this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 5});
       this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {4: true}});
-      this.props.history.push('/feeling');
+      this.props.history.push('/thankyou');
 
       //send axios post request with information from reduxState.feedback
       //reset
     }
+
     textEntered = (event)=>{
       this.props.dispatch({type: "SET_ADDITIONAL_COMMENTS", payload: event.target.value})
     }
