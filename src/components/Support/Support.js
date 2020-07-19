@@ -111,8 +111,8 @@ class Support extends Component{
                 Next
                 </Button>
               </Typography>
-              {JSON.stringify(this.props.reduxState.support)}
-              {JSON.stringify(this.props.reduxState.support_comment)}
+              {JSON.stringify(this.props.reduxState.feedback.support)}
+              {JSON.stringify(this.props.reduxState.feedback.support_comment)}
             </CardContent>
           </Card>
         )

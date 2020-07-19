@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from '../Header/Header';
 import './App.css';
 import {Grid} from '@material-ui/core';
+import {connect} from 'react-redux';
 
 import Comments from '../Comments/Comments';
 import Understanding from '../Understanding/Understanding';
@@ -21,6 +22,7 @@ class App extends Component {
         
         <Grid>
           <FeedbackStepper/>
+          {JSON.stringify(this.props.reduxState.stepper)}
         </Grid>
 
         {/*Main Body */}
@@ -47,4 +49,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (reduxState) =>({
+  reduxState
+})
+
+export default connect(mapStateToProps)(App);

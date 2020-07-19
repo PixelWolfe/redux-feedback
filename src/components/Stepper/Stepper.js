@@ -6,22 +6,7 @@ import Step from '@material-ui/core/Step';
 import StepButton from '@material-ui/core/StepButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
-const styles = theme => ({
-    root: {
-      width: '100%',
-    },
-    button: {
-      marginRight: theme.spacing.unit,
-    },
-    completed: {
-      display: 'inline-block',
-    },
-    instructions: {
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit,
-    },
-  });
+import {connect} from 'react-redux';
 
   //these are all the steps
   function getSteps() {
@@ -135,7 +120,7 @@ const styles = theme => ({
       const { activeStep } = this.state;
   
       return (
-        <div className={classes.root}>
+        <>
 
          {/*Stepper Component
                 Conditionally render a Step Component for every step in steps array
@@ -157,7 +142,7 @@ const styles = theme => ({
               </Step>
             ))}
           </Stepper>
-        </div>
+          </>
       );
     }
   }
@@ -165,6 +150,9 @@ const styles = theme => ({
   FeedbackStepper.propTypes = {
     classes: PropTypes.object,
   };
-  
 
-export default withStyles(styles)(FeedbackStepper);
+const mapStateToProps = (reduxState)=>({
+  reduxState
+})
+
+export default connect(mapStateToProps)(FeedbackStepper);

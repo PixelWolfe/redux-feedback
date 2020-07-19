@@ -7,7 +7,12 @@ import {applyMiddleware, createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 
-const defaultState = {
+const stepperDefaultState = {
+    activeStep: 0,
+    completed: {},
+}
+
+const feedbackDefaultState = {
     feeling: 3,
     feeling_comment: '',
     understanding: 3,
@@ -17,7 +22,7 @@ const defaultState = {
     additional_comments: '',
 }
 
-const feedback = (state = defaultState, action)=>{
+const feedback = (state = feedbackDefaultState, action)=>{
     switch(action.type){
         case 'SET_FEELING_RATING':
             return {...state, feeling: action.payload};
@@ -37,8 +42,18 @@ const feedback = (state = defaultState, action)=>{
     return state;
 }
 
+const stepper = (state = stepperDefaultState, action)=>{
+    switch(action.type){
+        case 'SET_STEPPER_ACTIVESTEP':
+            return {...state, activeStep: action.payload}
+        case 'SET_STEPPER_COMPLETED':
+            return {...state, completed: {...state.completed, ...action.payload}}
+    }
+    return state;
+}
+
 const storeInstance = createStore(
-    feedback, applyMiddleware(logger)
+    combineReducers({feedback, stepper}), applyMiddleware(logger)
 )
 
 ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, document.getElementById('root'));
