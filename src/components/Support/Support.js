@@ -17,6 +17,11 @@ class Support extends Component{
     textEntered = (event)=>{
       this.props.dispatch({type: "SET_SUPPORT_COMMENT", payload: event.target.value})
     }
+    completeStep = ()=>{
+      console.log('In next completeStep function');
+      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 3})
+      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {2: true}})
+    }
     render(){
         const cardStyle = {
             background: "linear-gradient(rgb(178, 197, 218), orange)",
@@ -107,7 +112,7 @@ class Support extends Component{
               variant="filled" 
               onChange={this.textEntered}/>
               <Typography align='right'>
-                <Button style={buffButtonMargin} variant="contained" color="primary" endIcon={<ArrowForward>Next</ArrowForward>}>
+                <Button onClick={this.completeStep} style={buffButtonMargin} variant="contained" color="primary" endIcon={<ArrowForward>Next</ArrowForward>}>
                 Next
                 </Button>
               </Typography>

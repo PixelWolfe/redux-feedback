@@ -10,6 +10,9 @@ import Understanding from '../Understanding/Understanding';
 import Feeling from '../Feeling/Feeling'
 import Support from '../Support/Support';
 import FeedbackStepper from '../Stepper/Stepper';
+import Review from '../Review/Review';
+
+
 
 class App extends Component {
   render() {
@@ -22,7 +25,6 @@ class App extends Component {
         
         <Grid>
           <FeedbackStepper/>
-          {JSON.stringify(this.props.reduxState.stepper)}
         </Grid>
 
         {/*Main Body */}
@@ -34,11 +36,13 @@ class App extends Component {
                
                 <Feeling/>
                 <br></br>
-                <Support/>
-                <br></br>
                 <Understanding/>
                 <br></br>
+                <Support/>
+                <br></br>
                 <Comments/>
+                <br></br>
+                <Review/>
               </Grid>
             </Grid>
           </Grid>

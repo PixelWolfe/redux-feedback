@@ -13,6 +13,11 @@ import ArrowForward from '@material-ui/icons/ArrowForward';
 import {connect} from 'react-redux';
 
 class Comments extends Component{
+    completeStep = ()=>{
+      console.log('In next completeStep function');
+      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 4})
+      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {3: true}})
+    }
     textEntered = (event)=>{
       this.props.dispatch({type: "SET_ADDITIONAL_COMMENTS", payload: event.target.value})
     }
@@ -41,19 +46,19 @@ class Comments extends Component{
               </Typography>
               <br></br>
               <TextField 
-              inputProps={{
-                maxLength: 2500,
-              }}
-              style={textField}
-              multiline={true}
-              rows='6'
-              rowsMax='10'
-              id="filled-basic" 
-              label="Comments" 
-              variant="filled" 
-              onChange={this.textEntered}/>
+                inputProps={{
+                  maxLength: 1500,
+                }}
+                style={textField}
+                multiline={true}
+                rows='6'
+                rowsMax='10'
+                id="filled-basic" 
+                label="Comments" 
+                variant="filled" 
+                onChange={this.textEntered}/>
               <Typography align='right'>
-                <Button style={buffButtonMargin} variant="contained" color="primary" endIcon={<ArrowForward>Next</ArrowForward>}>
+                <Button onClick={this.completeStep} style={buffButtonMargin} variant="contained" color="primary" endIcon={<ArrowForward>Next</ArrowForward>}>
                 Next
                 </Button>
               </Typography>

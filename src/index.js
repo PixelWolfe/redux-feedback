@@ -2,14 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App/App';
+import devToolsEnhancer from 'remote-redux-devtools';
 import logger from 'redux-logger';
 import {applyMiddleware, createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 
+
 const stepperDefaultState = {
     activeStep: 0,
-    completed: {},
+    completed: {0:false, 1:false, 2:false, 3:false},
 }
 
 const feedbackDefaultState = {
@@ -53,7 +55,7 @@ const stepper = (state = stepperDefaultState, action)=>{
 }
 
 const storeInstance = createStore(
-    combineReducers({feedback, stepper}), applyMiddleware(logger)
+    combineReducers({feedback, stepper}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
 ReactDOM.render(<Provider store={storeInstance}><App /></Provider>, document.getElementById('root'));

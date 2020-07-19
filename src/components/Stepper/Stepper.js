@@ -30,94 +30,42 @@ import {connect} from 'react-redux';
     }
   }
   
+  
   //create component
-  class FeedbackStepper extends React.Component {
+  class FeedbackStepper extends Component {
 
     //create local state with activeStep int count and completed object
     state = {
       activeStep: 0,
-      completed: {},
+      completed: {}
     };
-  
-    totalSteps = () => getSteps().length;
-  
     
-    handleNext = () => {
-      let activeStep;
-       // If activeStep is last step AND 
-            //all steps are NOT complete,
-      if (this.isLastStep() && !this.allStepsCompleted()) {
-        // find the first step that has been completed
-
-        //save all steps formatted step = ['step label','step label']
-        const steps = getSteps();
-        //set activeStep to the first index that matches of step
-        activeStep = steps.findIndex((step, i) => !(i in this.state.completed));
-      } else {
-        activeStep = this.state.activeStep + 1;
+    componentDidMount(){
+      this.setState({
+        ...this.state,
+        activeStep: this.props.reduxState.stepper.activeStep,
+        completed: this.props.reduxState.stepper.completed
+      })
+    }
+  
+    componentDidUpdate(previousProps) {
+      if(this.props.reduxState.stepper !== previousProps.reduxState.stepper) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+      {
+        this.setState({
+          ...this.state,
+          activeStep: this.props.reduxState.stepper.activeStep,
+          completed: this.props.reduxState.stepper.completed
+        })
       }
-      this.setState({
-        activeStep,
-      });
-    };
-  
-    handleBack = () => {
-        //setState this.state.activeStep minus one
-      this.setState(state => ({
-        activeStep: state.activeStep - 1,
-      }));
-    };
-  
-    handleStep = step => () => {
-        //
-      this.setState({
-        activeStep: step,
-      });
-    };
-  
-    handleComplete = () => {
-         //const completed = this.state.completed
-      const { completed } = this.state;
+    } 
 
-      //this.state.completed[activeStep] = true;
-      completed[this.state.activeStep] = true;
+    handleStep = (index)=>{
+      console.log('Inside of StepButton,', index);
+    }
+    
 
-      //set completed of that active state to true
-      //so if this.state.activeState = 4 then completed: {4: true}
-      this.setState({
-        completed, //{completed: {}
-      });
-      
-      //call
-      this.handleNext();
-    };
-  
-    handleReset = () => {
-      this.setState({
-        activeStep: 0,
-        completed: {},
-      });
-    };
-  
-    //tracks how many entries are in object
-    completedSteps() {
-      return Object.keys(this.state.completed).length;
-    }
-  
-    //returns true or false if active step is last step
-    isLastStep() {
-      return this.state.activeStep === this.totalSteps() - 1;
-    }
-  
-    //
-    allStepsCompleted() {
-      return this.completedSteps() === this.totalSteps();
-    }
-  
     render() {
-      const { classes } = this.props;
       const steps = getSteps();
-      const { activeStep } = this.state;
   
       return (
         <>
@@ -133,23 +81,24 @@ import {connect} from 'react-redux';
 
                     -Inside of StepButton but atlernativeLabel moves it below, will be the matching index of step array
         */}
-          <Stepper alternativeLabel activeStep={activeStep}>
+           <Stepper alternativeLabel activeStep={this.state.activeStep}>
             {steps.map((label, index) => (
               <Step key={label}>
-                <StepButton onClick={this.handleStep(index)} completed={this.state.completed[index]}>
+                <StepButton onClick={(index)=>this.handleStep(index)} completed={this.state.completed[index]}>
                   {label}
                 </StepButton>
               </Step>
             ))}
           </Stepper>
+          <p>STEPPER STATE:</p>{JSON.stringify(this.state)}
+          <br></br>
+          <br></br>
+          <p>REDUX STATE:</p>{JSON.stringify(this.props.reduxState.stepper)}
           </>
       );
     }
   }
   
-  FeedbackStepper.propTypes = {
-    classes: PropTypes.object,
-  };
 
 const mapStateToProps = (reduxState)=>({
   reduxState

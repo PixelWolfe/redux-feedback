@@ -17,7 +17,8 @@
     "redux-logger": "^3.0.6"
   },
   "devDependencies": {
-    "nodemon": "^1.18.5"
+    "nodemon": "^1.18.5",
+    "remote-redux-devtools": "^0.5.16"
   },
   "scripts": {
     "start": "node server/server.js",
