@@ -67,6 +67,10 @@ import {connect} from 'react-redux';
     render() {
       const steps = getSteps();
   
+      const stepperBackground= {
+        backgroundColor: 'transparent',
+        color: 'black',
+      }
       return (
         <>
 
@@ -81,7 +85,7 @@ import {connect} from 'react-redux';
 
                     -Inside of StepButton but atlernativeLabel moves it below, will be the matching index of step array
         */}
-           <Stepper alternativeLabel activeStep={this.state.activeStep}>
+           <Stepper alternativeLabel activeStep={this.state.activeStep} style={stepperBackground}>
             {steps.map((label, index) => (
               <Step key={label}>
                 <StepButton onClick={(index)=>this.handleStep(index)} completed={this.state.completed[index]}>
@@ -90,10 +94,13 @@ import {connect} from 'react-redux';
               </Step>
             ))}
           </Stepper>
-          <p>STEPPER STATE:</p>{JSON.stringify(this.state)}
+          {/*
+            <p>STEPPER STATE:</p>{JSON.stringify(this.state)}
+            <br></br>
+            <br></br>
+            <p>REDUX STATE:</p>{JSON.stringify(this.props.reduxState.stepper)}
+          */}
           <br></br>
-          <br></br>
-          <p>REDUX STATE:</p>{JSON.stringify(this.props.reduxState.stepper)}
           </>
       );
     }

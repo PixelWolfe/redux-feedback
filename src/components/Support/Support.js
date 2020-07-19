@@ -12,6 +12,7 @@ import Icon from '@material-ui/core/Icon';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 class Support extends Component{
     textEntered = (event)=>{
@@ -19,8 +20,9 @@ class Support extends Component{
     }
     completeStep = ()=>{
       console.log('In next completeStep function');
-      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 3})
-      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {2: true}})
+      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 3});
+      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {2: true}});
+      this.props.history.push('/comments');
     }
     render(){
         const cardStyle = {
@@ -128,4 +130,4 @@ const mapStateToProps = (reduxState)=>({
   reduxState
 })
 
-export default connect(mapStateToProps)(Support);
+export default connect(mapStateToProps)(withRouter(Support));

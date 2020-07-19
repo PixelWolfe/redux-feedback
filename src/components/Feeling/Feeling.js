@@ -12,15 +12,16 @@ import Icon from '@material-ui/core/Icon';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 
 import {connect} from 'react-redux';
-
+import {withRouter} from 'react-router-dom';
 class Feeling extends Component{
     textEntered = (event)=>{
       this.props.dispatch({type: 'SET_FEELING_COMMENT', payload: event.target.value})
     }
     completeStep = ()=>{
       console.log('In next completeStep function');
-      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 1})
-      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {0: true}})
+      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 1});
+      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {0: true}});
+      this.props.history.push('/understanding');
     }
     render(){
         const cardStyle = {
@@ -113,6 +114,7 @@ class Feeling extends Component{
               variant="filled" 
               onChange={this.textEntered}/>
               <Typography align='right'>
+                
                 <Button onClick={this.completeStep} style={buffButtonMargin}
                  variant="contained" color="primary"
                   endIcon={<ArrowForward>Next</ArrowForward>}>
@@ -132,4 +134,4 @@ const mapStateToProps = (reduxState)=>({
   reduxState
 })
 
-export default connect(mapStateToProps)(Feeling);
+export default connect(mapStateToProps)(withRouter(Feeling));

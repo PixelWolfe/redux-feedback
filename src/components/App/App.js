@@ -12,7 +12,7 @@ import Support from '../Support/Support';
 import FeedbackStepper from '../Stepper/Stepper';
 import Review from '../Review/Review';
 
-
+import {HashRouter as Router, Route, Link, withRouter} from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -34,7 +34,15 @@ class App extends Component {
             <Grid container spacing={4} justify='center'>
               <Grid item xs={12} sm={10} md={8} lg={6} >
                
-                <Feeling/>
+
+                <Router>
+                  <Route exact path='/' component={Feeling}/>
+                  <Route path='/feeling' component={Feeling}/>
+                  <Route path='/understanding' component={Understanding}/>
+                  <Route path='/support' component={Support}/>
+                  <Route path='/comments' component={Comments}/>
+                  <Route path='/review' component={Review}/>
+                </Router>
 
                 {/*
                   <br></br>

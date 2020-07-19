@@ -11,12 +11,14 @@ import Icon from '@material-ui/core/Icon';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 class Comments extends Component{
     completeStep = ()=>{
       console.log('In next completeStep function');
-      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 4})
-      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {3: true}})
+      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 4});
+      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {3: true}});
+      this.props.history.push('/review');
     }
     textEntered = (event)=>{
       this.props.dispatch({type: "SET_ADDITIONAL_COMMENTS", payload: event.target.value})
@@ -74,4 +76,4 @@ const mapStateToProps= (reduxState) => ({
   reduxState
 })
 
-export default connect(mapStateToProps)(Comments);
+export default connect(mapStateToProps)(withRouter(Comments));

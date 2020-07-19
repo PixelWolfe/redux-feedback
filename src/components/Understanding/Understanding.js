@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 class Understanding extends Component{
@@ -19,8 +20,9 @@ class Understanding extends Component{
     }
     completeStep = ()=>{
       console.log('In next completeStep function');
-      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 2})
-      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {1: true}})
+      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 2});
+      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {1: true}});
+      this.props.history.push('/support');
     }
     render(){
         const cardStyle = {
@@ -129,4 +131,4 @@ const mapStateToProps = (reduxState) =>({
   reduxState
 })
 
-export default connect(mapStateToProps)(Understanding);
+export default connect(mapStateToProps)(withRouter(Understanding));
