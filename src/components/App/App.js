@@ -54,7 +54,7 @@ class App extends Component {
                   <Route path='/understanding' component={Understanding}/>
                   <Route path='/support' component={Support}/>
                   <Route path='/comments' component={Comments}/>
-                  <Route path='/review' render={() => <Review postFeedback={this.postFeedback} />}/>
+                  <Route path='/review' component={Review}/>
                   <Route path='/thankyou' component={ThankYou}/>
                 </Router>
 

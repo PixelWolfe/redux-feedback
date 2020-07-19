@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import DoneAll from '@material-ui/icons/DoneAll';
+import axios from 'axios';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core'
@@ -46,13 +47,21 @@ class Comments extends Component{
         additional_comments: this.props.reduxState.feedback.additional_comments
       }
 
-      console.log(feedbackObject);
-      //send axios post request with information from reduxState.feedback
-      this.props.postFeedback(feedbackObject);
+      let postFeedback = (feedback)=>{
+        axios.post('/feedback', feedback)
+         .then((response)=>{
+           console.log('response from server:',response);
+           this.props.history.push('/thankyou');
+         })
+         .catch((err)=>{
+           alert('Error posting feedback to database!', err);
+           console.log(err)
+         })
+      }
 
-      //move to the next card, saying thanks. This should be in a then but history.push
-      //is not meant to be called from App, I'll have to do a little bit more research before finalizing this.
-      this.props.history.push('/thankyou')
+      postFeedback(feedbackObject);
+      
+      
      
     }
 
