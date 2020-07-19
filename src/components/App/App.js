@@ -35,14 +35,18 @@ class App extends Component {
               <Grid item xs={12} sm={10} md={8} lg={6} >
                
                 <Feeling/>
-                <br></br>
-                <Understanding/>
-                <br></br>
-                <Support/>
-                <br></br>
-                <Comments/>
-                <br></br>
-                <Review/>
+
+                {/*
+                  <br></br>
+                  <Understanding/>
+                  <br></br>
+                  <Support/>
+                  <br></br>
+                  <Comments/>
+                  <br></br>
+                  <Review/>
+                */}
+                
               </Grid>
             </Grid>
           </Grid>

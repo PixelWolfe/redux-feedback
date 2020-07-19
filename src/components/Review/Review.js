@@ -11,6 +11,8 @@ import Icon from '@material-ui/core/Icon';
 import DoneAll from '@material-ui/icons/DoneAll';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core'
+import { createMuiTheme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -34,7 +36,24 @@ class Comments extends Component{
     textEntered = (event)=>{
       this.props.dispatch({type: "SET_ADDITIONAL_COMMENTS", payload: event.target.value})
     }
+
+    completeStep = () => {
+      console.log('In next completeStep function');
+      this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 4})
+      this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {4: true}})
+    }
     render(){
+
+        const theme = createMuiTheme({
+            overrides: {
+                MuiTableCell: {
+                    root: {  //This can be referred from Material UI API documentation. 
+                        padding: '5px 8px',
+                        minWidth: "none"
+                    },
+                },
+            },
+        });
 
         const cardStyle = {
             background: "linear-gradient(rgb(178, 197, 218), orange)",
@@ -55,7 +74,7 @@ class Comments extends Component{
             createData('Feeling', 3, 'comments go here'),
             createData('Understanding', 5, 'comments go here'),
             createData('Support', 5, 'comments go here'),
-            createData('Additional Comments', 305, 'comments go here')
+            createData('Other Comments', 305, 'comments go here')
           ];
           
           const feedbackComments = 
@@ -63,6 +82,13 @@ class Comments extends Component{
             this.props.reduxState.feedback.understanding_comment, 
             this.props.reduxState.feedback.support_comment, 
             this.props.reduxState.feedback.additional_comments]
+
+          const feedbackRatings = [
+            this.props.reduxState.feedback.feeling,
+            this.props.reduxState.feedback.understanding,
+            this.props.reduxState.feedback.support,
+            ''
+          ]
 
         return(
             <Card variant="outlined" style={cardStyle}>
@@ -75,12 +101,12 @@ class Comments extends Component{
                 Here's what you're sending us!<br></br> Want to make any edits?
               </Typography>
               <br></br>
-              <TableContainer component={Paper}>
-                <Table size="small" aria-label="a dense table">
+              <ThemeProvider theme={theme}>
+                <Table aria-label="a dense table">
                   <TableHead>
                     <TableRow>
                       <TableCell>Category</TableCell>
-                      <TableCell>Rating (1-5)</TableCell>
+                      <TableCell align='center'>Rating (1-5)</TableCell>
                       <TableCell>Comment</TableCell>
                       <TableCell align="center">Edit</TableCell>
                     </TableRow>
@@ -89,28 +115,27 @@ class Comments extends Component{
                     {rows.map((row, index) => (
                       <TableRow key={row.Category}>
                         <TableCell>{row.Category}</TableCell>
-                        <TableCell align='center'>{row.Feedback_Rating}</TableCell>
+                        <TableCell align='center'>{feedbackRatings[index]}</TableCell>
                         <TableCell>
                           <Tooltip title={feedbackComments[index]} arrow>
-                          <Button startIcon={<Comment>{row.Comment}</Comment>}></Button>
+                          <Button startIcon={<Comment></Comment>}></Button>
                           </Tooltip>
                         </TableCell>
-                        <TableCell>
+                        <TableCell align='center'>
                           <Button variant='contained' size='small'>Edit</Button>
                         </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
                 </Table>
-            </TableContainer>
+            </ThemeProvider>
                 
               <Typography align='right'>
-                <Button style={buffButtonMargin} variant="contained" color="primary" endIcon={<DoneAll>Submit Feedback!</DoneAll>}>
+                <Button onClick={this.completeStep} style={buffButtonMargin} variant="contained" color="primary" endIcon={<DoneAll>Submit Feedback!</DoneAll>}>
                 Submit Feedback!
                 </Button>
               </Typography>
               {JSON.stringify(this.props.reduxState)}
-
             </CardContent>
           </Card>
         )
