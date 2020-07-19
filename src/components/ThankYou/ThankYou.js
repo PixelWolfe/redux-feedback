@@ -56,21 +56,17 @@ class Comments extends Component{
               <Typography align="center" gutterBottom>
                 Thank you for providing feedback!
                 <br></br>
+                Your feedback has been received and securely stored for review.
                 <br></br>
-
-              </Typography>
-              <Typography align="left" gutterBottom>
-                Your information is securely stored and you may now safely exit this page at any point.
-                All information will be kept confidential and
-                will only be used for improving our user experience.
+                <br></br>
+                All information will be kept confidential and anonymous. 
+                Information will only be used for improving our user experience.
                 <br></br>
                 <br></br>
                 If you have additional concerns or suggestions 
                 feel free to contact us at companyName@feedback.com.
                 <br/>
                 <br/>
-              </Typography>
-              <Typography align="center">
                 Have another feedback submission to make? Click the button below.
               </Typography>
               <Typography align='center'>

@@ -35,6 +35,7 @@ class Comments extends Component{
       this.props.dispatch({type: 'SET_STEPPER_ACTIVESTEP', payload: 5});
       this.props.dispatch({type: 'SET_STEPPER_COMPLETED', payload: {4: true}});
 
+
       let feedbackObject = {
         feeling: this.props.reduxState.feedback.feeling,
         feeling_comment: this.props.reduxState.feedback.feeling_comment,
@@ -47,11 +48,11 @@ class Comments extends Component{
 
       console.log(feedbackObject);
       //send axios post request with information from reduxState.feedback
-      //reset
+      this.props.postFeedback(feedbackObject);
 
-      //in then move the history
-      this.props.history.push('/thankyou');
-
+      //move to the next card, saying thanks. This should be in a then but history.push
+      //is not meant to be called from App, I'll have to do a little bit more research before finalizing this.
+      this.props.history.push('/thankyou')
      
     }
 

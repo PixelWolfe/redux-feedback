@@ -16,6 +16,18 @@ import ThankYou from '../ThankYou/ThankYou';
 import {HashRouter as Router, Route, Link, withRouter} from 'react-router-dom';
 
 class App extends Component {
+
+  postFeedback = (feedback)=>{
+    axios.post('/feedback', feedback)
+     .then((response)=>{
+       console.log('response from server:',response);
+     })
+     .catch((err)=>{
+       alert('Error posting feedback to database!', err);
+       console.log(err)
+     })
+  }
+
   render() {
     return (
       <Grid container direction="column">
@@ -42,7 +54,7 @@ class App extends Component {
                   <Route path='/understanding' component={Understanding}/>
                   <Route path='/support' component={Support}/>
                   <Route path='/comments' component={Comments}/>
-                  <Route path='/review' component={Review}/>
+                  <Route path='/review' render={() => <Review postFeedback={this.postFeedback} />}/>
                   <Route path='/thankyou' component={ThankYou}/>
                 </Router>
 
