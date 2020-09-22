@@ -6,7 +6,7 @@
 
 #### Personal Goals
 
-  - My main goals with this project was to solidify my understanding of redux and the usage of reducers with react, and experiment with some of the more advanced material-ui components like steppers. Other goals was the contined practice of the react-router-dom library.
+  - My main goals with this project was to solidify my understanding of redux and the usage of reducers with react, and experiment with some of the more advanced material-ui components like steppers. Other goals was the continued practice of the react-router-dom library.
 
 ### Screen Shots / Gifs
 
@@ -35,9 +35,9 @@ Before you get started, make sure you have the following software installed on y
 
 ### Usage
 
-A user will be navigate through a short feedback form process rating their feelings on that particular day, understanding of the content, support for that day. Additionally they may leave comments with any these ratings, and have the option to provide additional comments for anything else they'd like us (whoever is providing this feedback service) to know.
+A user will navigate through a short feedback form process rating their feelings on that particular day, understanding of the content, and support level for that day. Additionally they may leave comments with any these ratings, and have the option to provide additional comments for anything else they'd like us (whoever is providing this feedback service) to know.
 
-A user may review all submitted comments and ratings before submitting feedback, additionally they fufill another feedback form if there are multiple applicable individuals in one household.
+A user may review all submitted comments and ratings before submitting feedback, additionally they fulfill another feedback form if there are multiple applicable individuals in one household.
 
 ### Built With / Technologies Used
 
